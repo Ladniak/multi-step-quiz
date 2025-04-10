@@ -46,3 +46,10 @@ body {
   overflow-x: hidden;
   font-family: "Roboto", sans-serif;
 }
+
+/* ==== Тимчасово ==== */
+
+div {
+  display: flex;
+  gap: 20px;
+}
