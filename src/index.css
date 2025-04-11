@@ -44,12 +44,6 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  background: #fcfad5;
   font-family: "Roboto", sans-serif;
-}
-
-/* ==== Тимчасово ==== */
-
-div {
-  display: flex;
-  gap: 20px;
 }

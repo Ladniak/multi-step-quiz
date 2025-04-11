@@ -4,6 +4,7 @@ import { fetchQuestions, fetchSteps } from "./operations";
 const INITIAL_STATE = {
   steps: [],
   questions: [],
+  answers: {},
   loading: false,
   error: null,
 };
@@ -11,6 +12,12 @@ const INITIAL_STATE = {
 const quizSlice = createSlice({
   name: "quiz",
   initialState: INITIAL_STATE,
+  reducers: {
+    saveAnswer: (state, action) => {
+      const { questionId, answer } = action.payload;
+      state.answers[questionId] = answer;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSteps.pending, (state) => {
@@ -39,4 +46,5 @@ const quizSlice = createSlice({
   },
 });
 
+export const { saveAnswer } = quizSlice.actions;
 export const quizReducer = quizSlice.reducer;

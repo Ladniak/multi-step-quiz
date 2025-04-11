@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  padding-top: 12vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.loading {
+  display: flex;
+  margin: 0 auto;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
