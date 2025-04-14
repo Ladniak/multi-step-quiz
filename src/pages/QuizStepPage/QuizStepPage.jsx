@@ -55,6 +55,23 @@ const QuizStepPage = () => {
     const isFirstStep = currentStepIndex === 0;
 
     const handleNext = () => {
+        const isStepValid = stepQuestions.every((question) => {
+            const answer = answers[question.sys.id];
+
+            if (!answer || answer.length === 0) return false;
+
+            if (question.fields.type === "text") {
+                return answer[0]?.trim() !== "";
+            }
+
+            return true;
+        });
+
+        if (!isStepValid) {
+            alert("Будь ласка, дайте відповідь на всі питання перед переходом далі.");
+            return;
+        }
+
         if (!isLastStep) {
             const nextStepId = sortedSteps[currentStepIndex + 1].fields.stepId;
             navigate(`/step/${nextStepId}`);

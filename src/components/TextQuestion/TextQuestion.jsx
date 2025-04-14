@@ -2,7 +2,8 @@ import module from "./TextQuestion.module.css"
 
 const TextQuestion = ({ question, value, onAnswer }) => {
     const handleChange = (e) => {
-        onAnswer(question.sys.id, [e.target.value]);
+        const input = e.target.value.toLowerCase();
+        onAnswer(question.sys.id, [input]);
     };
 
     return (

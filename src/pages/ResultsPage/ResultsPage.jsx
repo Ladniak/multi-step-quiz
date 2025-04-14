@@ -13,20 +13,36 @@ const ResultsPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const correctAnswersCount = Object.entries(userAnswers).filter(([questionId, answerArr]) => {
-        const question = questions.find((q) => q.sys.id === questionId);
-        const correct = question?.fields.correctAnswer;
+    const correctAnswersCount = questions.reduce((acc, question) => {
+        const userAnswer = userAnswers[question.sys.id];
+        const correctAnswer = question.fields.correctAnswer;
 
-        if (!question) return false;
+        if (!userAnswer || !correctAnswer) return acc;
 
-        if (Array.isArray(correct)) {
-            return Array.isArray(answerArr) &&
-                correct.length === answerArr.length &&
-                correct.every((ans) => answerArr.includes(ans));
-        } else {
-            return Array.isArray(answerArr) && answerArr[0] === correct;
+        if (typeof correctAnswer === "string") {
+            const userInput = Array.isArray(userAnswer) ? userAnswer[0]?.trim().toLowerCase() : "";
+            const correctInput = correctAnswer.trim().toLowerCase();
+            if (userInput === correctInput) return acc + 1;
         }
-    }).length;
+
+        if (Array.isArray(correctAnswer) && correctAnswer.length === 1) {
+            if (Array.isArray(userAnswer) && userAnswer[0] === correctAnswer[0]) {
+                return acc + 1;
+            }
+        }
+
+        if (Array.isArray(correctAnswer) && correctAnswer.length > 1) {
+            const isCorrect =
+                Array.isArray(userAnswer) &&
+                userAnswer.length === correctAnswer.length &&
+                correctAnswer.every((item) => userAnswer.includes(item));
+
+            if (isCorrect) return acc + 1;
+        }
+
+        return acc;
+    }, 0);
+
 
 
     const handleRestart = () => {
