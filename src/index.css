@@ -31,7 +31,6 @@ a {
 button {
   cursor: pointer;
   border: none;
-  color: #ffffff;
   transition: 0.3s;
   padding: 0;
 }

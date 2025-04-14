@@ -1,4 +1,6 @@
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import { useSelector, useDispatch } from "react-redux";
 
 import { selectSteps, selectQuestions, isLoading, selectAnswers } from "../../redux/questions/selectors";
@@ -13,11 +15,14 @@ const QuizStepPage = () => {
     const { stepId } = useParams();
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const steps = useSelector(selectSteps);
     const questions = useSelector(selectQuestions);
     const loading = useSelector(isLoading);
     const answers = useSelector(selectAnswers);
+
+    // For steps
 
     const currentStep = steps?.find(
         (step) => step.fields.stepId === stepId
@@ -31,6 +36,36 @@ const QuizStepPage = () => {
     const handleAnswer = (questionId, answer) => {
         dispatch(saveAnswer({ questionId, answer }));
     };
+
+    // For buttons
+
+    const sortedSteps = [...steps].sort(
+        (a, b) => a.fields.order - b.fields.order
+    );
+
+    const currentStepIndex = sortedSteps.findIndex(
+        (step) => step.fields.stepId === stepId
+    );
+
+    const isLastStep = currentStepIndex === sortedSteps.length - 1;
+    const isFirstStep = currentStepIndex === 0;
+
+    const handleNext = () => {
+        if (!isLastStep) {
+            const nextStepId = sortedSteps[currentStepIndex + 1].fields.stepId;
+            navigate(`/step/${nextStepId}`);
+        } else {
+            navigate("/results");
+        }
+    };
+
+    const handleBack = () => {
+        if (!isFirstStep) {
+            const prevStepId = sortedSteps[currentStepIndex - 1].fields.stepId;
+            navigate(`/step/${prevStepId}`);
+        }
+    };
+
 
     return (
         <div className={module.container}>
@@ -68,6 +103,16 @@ const QuizStepPage = () => {
                     </ul>
                 </>
             }
+            <div className={module.buttonsWrapper}>
+                {!isFirstStep && (
+                    <button onClick={handleBack} className={module.button}>
+                        Назад
+                    </button>
+                )}
+                <button onClick={handleNext} className={module.button}>
+                    {isLastStep ? "Завершити" : "Далі"}
+                </button>
+            </div>
         </div>
     );
 };
