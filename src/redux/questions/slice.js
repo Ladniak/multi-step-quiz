@@ -17,6 +17,7 @@ const quizSlice = createSlice({
       const { questionId, answer } = action.payload;
       state.answers[questionId] = answer;
     },
+    resetQuiz: () => INITIAL_STATE,
   },
   extraReducers: (builder) => {
     builder
@@ -46,5 +47,5 @@ const quizSlice = createSlice({
   },
 });
 
-export const { saveAnswer } = quizSlice.actions;
+export const { saveAnswer, resetQuiz } = quizSlice.actions;
 export const quizReducer = quizSlice.reducer;
