@@ -4,3 +4,33 @@
   align-items: center;
   min-height: 100vh;
 }
+
+.title {
+  position: relative;
+  text-decoration: none;
+  color: #121417;
+  padding-bottom: 4px;
+  font-weight: 700;
+  font-size: 35px;
+  display: inline-block;
+}
+
+.title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #213a5c;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-in-out;
+}
+.title:hover {
+  color: #213a5c;
+}
+
+.title:hover::after {
+  transform: scaleX(1);
+}

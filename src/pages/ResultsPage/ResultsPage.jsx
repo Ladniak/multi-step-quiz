@@ -13,10 +13,21 @@ const ResultsPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const correctAnswersCount = Object.entries(userAnswers).filter(([questionId, answerId]) => {
+    const correctAnswersCount = Object.entries(userAnswers).filter(([questionId, answerArr]) => {
         const question = questions.find((q) => q.sys.id === questionId);
-        return question?.fields.correctAnswer === answerId;
+        const correct = question?.fields.correctAnswer;
+
+        if (!question) return false;
+
+        if (Array.isArray(correct)) {
+            return Array.isArray(answerArr) &&
+                correct.length === answerArr.length &&
+                correct.every((ans) => answerArr.includes(ans));
+        } else {
+            return Array.isArray(answerArr) && answerArr[0] === correct;
+        }
     }).length;
+
 
     const handleRestart = () => {
         dispatch(resetQuiz());

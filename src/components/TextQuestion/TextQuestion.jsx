@@ -2,7 +2,7 @@ import module from "./TextQuestion.module.css"
 
 const TextQuestion = ({ question, value, onAnswer }) => {
     const handleChange = (e) => {
-        onAnswer(question.sys.id, e.target.value);
+        onAnswer(question.sys.id, [e.target.value]);
     };
 
     return (
@@ -10,8 +10,10 @@ const TextQuestion = ({ question, value, onAnswer }) => {
             <h3 className={module.title}>{question.fields.text}</h3>
             <input
                 type="text"
-                value={value || ""}
+                value={Array.isArray(value) ? value[0] || "" : ""}
                 onChange={handleChange}
+                className={module.field}
+                placeholder="Введіть відповідь"
             />
         </div>
     );

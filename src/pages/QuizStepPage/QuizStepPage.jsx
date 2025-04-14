@@ -10,6 +10,7 @@ import module from "./QuizStepPage.module.css";
 
 import TextQuestion from "../../components/TextQuestion/TextQuestion.jsx";
 import SingleChoiceQuestion from "../../components/SingleChoiceQuestion/SingleChoiceQuestion.jsx";
+import MultiChoiceQuestion from "../../components/MultiChoiceQuestion/MultiChoiceQuestion.jsx";
 
 const QuizStepPage = () => {
     const { stepId } = useParams();
@@ -21,6 +22,9 @@ const QuizStepPage = () => {
     const questions = useSelector(selectQuestions);
     const loading = useSelector(isLoading);
     const answers = useSelector(selectAnswers);
+
+    console.log(questions);
+
 
     // For steps
 
@@ -93,6 +97,17 @@ const QuizStepPage = () => {
                                         key={question.sys.id}
                                         question={question}
                                         value={answers[question.sys.id]}
+                                        onAnswer={handleAnswer}
+                                    />
+                                );
+                            }
+
+                            if (type === "many-choice") {
+                                return (
+                                    <MultiChoiceQuestion
+                                        key={question.sys.id}
+                                        question={question}
+                                        value={answers[question.sys.id] || []}
                                         onAnswer={handleAnswer}
                                     />
                                 );

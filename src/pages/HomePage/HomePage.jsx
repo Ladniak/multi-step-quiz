@@ -23,7 +23,7 @@ const HomePage = () => {
     return (
         <div className={module.homeDiv}>
             {sortedSteps.length > 0 && (
-                <Link to={`/step/${sortedSteps[0].fields.stepId}`}>Start</Link>
+                <Link to={`/step/${sortedSteps[0].fields.stepId}`} className={module.title}>Почати тестування</Link>
             )}
         </div>
     );
