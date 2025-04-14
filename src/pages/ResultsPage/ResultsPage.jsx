@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { PieChart, Pie, Cell, Tooltip } from "recharts";
 
 import { selectAnswers, selectQuestions } from "../../redux/questions/selectors";
 import { resetQuiz } from "../../redux/questions/slice";
@@ -43,12 +44,17 @@ const ResultsPage = () => {
         return acc;
     }, 0);
 
-
-
     const handleRestart = () => {
         dispatch(resetQuiz());
         navigate("/");
     };
+
+    const data = [
+        { name: "Правильні", value: correctAnswersCount },
+        { name: "Неправильні", value: questions.length - correctAnswersCount },
+    ];
+
+    const COLORS = ["#4e75ff", "#ff6b6b"];
 
     return (
         <div className={module.wrapper}>
@@ -57,8 +63,30 @@ const ResultsPage = () => {
                 Правильних відповідей: <strong>{correctAnswersCount}</strong> з{" "}
                 <strong>{questions.length}</strong>
             </p>
+
+            <div className={module.chartWrapper}>
+                <PieChart width={300} height={250}>
+                    <Pie
+                        data={data}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={40}
+                        outerRadius={70}
+                        fill="#8884d8"
+                        paddingAngle={5}
+                        dataKey="value"
+                        label
+                    >
+                        {data.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                    </Pie>
+                    <Tooltip />
+                </PieChart>
+            </div>
+
             <button className={module.restartBtn} onClick={handleRestart}>
-                Почати спочатку
+                На домашню сторінку
             </button>
         </div>
     );
