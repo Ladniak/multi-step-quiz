@@ -48,8 +48,8 @@ npm run dev
 ## Technologies Used
 
 - React  
-- Vite  
-- Tailwind CSS  
+- Vite
+- Redux
 - Contentful (for quiz content management)
 
 ## Author
