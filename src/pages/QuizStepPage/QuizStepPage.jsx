@@ -11,6 +11,7 @@ import module from "./QuizStepPage.module.css";
 import TextQuestion from "../../components/TextQuestion/TextQuestion.jsx";
 import SingleChoiceQuestion from "../../components/SingleChoiceQuestion/SingleChoiceQuestion.jsx";
 import MultiChoiceQuestion from "../../components/MultiChoiceQuestion/MultiChoiceQuestion.jsx";
+import toast, { Toaster } from "react-hot-toast";
 
 const QuizStepPage = () => {
     const { stepId } = useParams();
@@ -68,7 +69,12 @@ const QuizStepPage = () => {
         });
 
         if (!isStepValid) {
-            alert("Будь ласка, дайте відповідь на всі питання перед переходом далі.");
+            toast(
+                "Дайте відповідь на всі поля!",
+                {
+                    duration: 3000,
+                }
+            );
             return;
         }
 
@@ -145,6 +151,10 @@ const QuizStepPage = () => {
                     {isLastStep ? "Завершити" : "Далі"}
                 </button>
             </div>
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+            />
         </div>
     );
 };

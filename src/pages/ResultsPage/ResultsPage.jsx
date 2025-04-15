@@ -58,7 +58,7 @@ const ResultsPage = () => {
 
     return (
         <div className={module.wrapper}>
-            <h1 className={module.title}>🎉 Вітаємо! Ви завершили вікторину</h1>
+            <h1 className={module.title}>Ви завершили вікторину</h1>
             <p className={module.score}>
                 Правильних відповідей: <strong>{correctAnswersCount}</strong> з{" "}
                 <strong>{questions.length}</strong>

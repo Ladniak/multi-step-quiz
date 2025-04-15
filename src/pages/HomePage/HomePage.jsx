@@ -22,6 +22,10 @@ const HomePage = () => {
 
     return (
         <div className={module.homeDiv}>
+            <p className={module.par}>
+                Сайт на якому ви можете себе перевірити на знання України. Тут зібрані цікаві питання, які змусять вас замислитися.
+                Якщо готові тисніть на посилання!
+            </p>
             {sortedSteps.length > 0 && (
                 <Link to={`/step/${sortedSteps[0].fields.stepId}`} className={module.title}>Почати тестування</Link>
             )}
